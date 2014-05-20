@@ -1,8 +1,10 @@
+<div class="row">
+    <div ng-repeat='image in images'>
+    <div class="span3" style="padding-top: 20px; padding-bottom:30px;">
 
-  
-  <div ng-repeat='image in images'>
-    <div>{{image.name}}</div>
-    <div ng-href='#/view/{{image.id}}'><img ng-src="{{image.imageUrl}}" height="400px" width="600px" /></div>
-    <div>{{image.userName}}</div>
-  </Div>
-
+        <a ng-href='#/view/{{image.id}}'><img ng-src="{{image.imageUrl}}" height="400px" width="600px" /></a>
+        <div class = "offset1">{{image.name}}</div>
+    </div>
+</div>
+   </div>
+</div>

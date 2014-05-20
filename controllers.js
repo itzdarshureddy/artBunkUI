@@ -1,8 +1,8 @@
-// Create a module for our core AMail services
+// Create a module for our core ArtBunk services
 var artBunkServices = angular.module('ArtBunk', []);
 
 // Set up our mappings between URLs, templates, and controllers
-function emailRouteConfig($routeProvider) {
+function artBunkRouteConfig($routeProvider) {
   $routeProvider.
   when('/', {
     controller: ListController,
@@ -19,19 +19,44 @@ function emailRouteConfig($routeProvider) {
   });
 }
 
-// Set up our route so the AMail service can find it
-artBunkServices.config(emailRouteConfig);
+// Set up our route so the service can find it
+artBunkServices.config(artBunkRouteConfig);
 
-// Some fake emails
-images = [{"id":1,"name":"darshan","description":"idk","category":"painting","imageUrl":"http://localhost:8080/img/20140221_113157.jpeg","date_created":1399785181000,"last_updated":1399785181000,"imageCost":"222","userName":"darshan","medium":"water color","noOfLikes":null},{"id":2,"name":"Akshatha","description":"christmas hat","category":"painting","imageUrl":"http://localhost:8080/img/sketch.jpg","date_created":1399806471000,"last_updated":1399806471000,"imageCost":"200","userName":"Akshatha","medium":"sketch","noOfLikes":null}];
+artBunkServices.factory('Images', function($http) {
+    var images = {};
+    var data = [];
+    images.getAllImages = function() {
 
-// Publish our messages for the list template
-function ListController($scope) {
-  $scope.images = images;
+        return $http({  //returns a promise object which can have error , success and the status
+            dataType: 'json',
+            method  : 'GET',
+            url     : 'http://localhost:8080/allImages'
+        }) .success(function(images){ // you can skip this success as u have this in List Controller but because you need to save allImages you have success defined here.
+             data = images;
+            });
+    };
+
+    images.getImage = function(id){
+      for (var i in data) {
+          if(data[i].id == id){
+            return data[i];
+          }
+      }
+    };
+    return images;
+});
+
+
+function ListController(Images,$scope) {
+    Images.getAllImages().success(function(images) {
+            $scope.images = images;
+    });
 }
 
-// Get the message id from the route (parsed from the URL) and use it to
-// find the right message object.
-function DetailController($scope, $routeParams) {
-  $scope.image = images[$routeParams.id];
+// Get the image id from the route (parsed from the URL) and use it to
+// find the right image object.
+function DetailController($scope, $routeParams,Images) {
+    $scope.image = Images.getImage($routeParams.id);
+    console.log($scope.image);
 }
+
