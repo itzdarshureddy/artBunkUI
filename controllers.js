@@ -45,13 +45,13 @@ artBunkServices.factory('Images', function($http) {
       }
     };
 
-    /*images.getImageById = function(id,callback) {
-        $http({  //returns a promise object which can have error , success and the status
+    images.getImageById = function(id) {
+        return $http({  //returns a promise object which can have error , success and the status
             dataType: 'json',
             method  : 'GET',
             url     : 'http://localhost:8080/images/'+id
-        }).success(callback);
-    };*/
+        });
+    };
 
     return images;
 });
@@ -66,7 +66,7 @@ function ListController(Images,$scope) {
 // Get the image id from the route (parsed from the URL) and use it to
 // find the right image object.
 function DetailController($scope, $routeParams,Images) {
-    $scope.image = Images.getImage($routeParams.id);
-    console.log($scope.image);
-
+    Images.getImageById($routeParams.id).success(function(data){
+        $scope.image = data;
+    });
 }
