@@ -33,6 +33,7 @@ artBunkServices.factory('Images', function($http) {
             url     : 'http://localhost:8080/allImages'
         }) .success(function(images){ // you can skip this success as u have this in List Controller but because you need to save allImages you have success defined here.
              data = images;
+             console.log(data);
             });
     };
 
@@ -43,6 +44,15 @@ artBunkServices.factory('Images', function($http) {
           }
       }
     };
+
+    /*images.getImageById = function(id,callback) {
+        $http({  //returns a promise object which can have error , success and the status
+            dataType: 'json',
+            method  : 'GET',
+            url     : 'http://localhost:8080/images/'+id
+        }).success(callback);
+    };*/
+
     return images;
 });
 
@@ -58,5 +68,5 @@ function ListController(Images,$scope) {
 function DetailController($scope, $routeParams,Images) {
     $scope.image = Images.getImage($routeParams.id);
     console.log($scope.image);
-}
 
+}
