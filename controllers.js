@@ -66,7 +66,10 @@ function ListController(Images,$scope) {
 // Get the image id from the route (parsed from the URL) and use it to
 // find the right image object.
 function DetailController($scope, $routeParams,Images) {
-    Images.getImageById($routeParams.id).success(function(data){
-        $scope.image = data;
-    });
+    $scope.image  = Images.getImage($routeParams.id);
+    if(!$scope.image){
+        Images.getImageById($routeParams.id).success(function(data){
+            $scope.image = data;
+        });
+    }
 }
