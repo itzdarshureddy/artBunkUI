@@ -1,0 +1,22 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+<FORM name="form" ng-submit="http://localhost:8080/image/upload"
+      enctype="multipart/form-data"
+      method="post">
+    <P>
+        What files are you sending?
+        Name:<input type="text" name="name" ng-model="name"  ng-required="true"><BR>
+        description:<input type="text" name="description" ng-model="description" ng-required="true"><br/>
+        category:<input type="text" name="category" ng-model="category" ng-required="true"><br/>
+        image cost:<input type="number" name="image_cost" style="height:30px;" ng-model="image_cost" ><br/>
+        medium:<input type="text" name="medium" ng-model="medium"><br/>
+        user name:<input type="text" name="user_name" ng-model="user_name" ng-required="true"><br/>
+        <INPUT type="file" name="file" ng-model="file"><BR>
+        <INPUT type="submit" value="Send"> <INPUT type="reset">
+</FORM>
+
+</body>
+</html>

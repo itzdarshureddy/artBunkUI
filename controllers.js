@@ -14,6 +14,10 @@ function artBunkRouteConfig($routeProvider) {
     controller: DetailController,
     templateUrl: 'detail.html'
   }).
+  when('/upload/', {
+          controller: UploadController,
+          templateUrl: 'upload.html'
+  }).
   otherwise({
     redirectTo: '/'
   });
@@ -72,4 +76,9 @@ function DetailController($scope, $routeParams,Images) {
             $scope.image = data;
         });
     }
+}
+
+
+function UploadController(Images,$scope) {
+    $scope.image  = Images.getImage(1);
 }
